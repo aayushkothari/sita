@@ -1,4 +1,4 @@
-source 'https://rubygems.org'
+source 'http://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.2'
@@ -23,6 +23,13 @@ gem 'rails_12factor', group: :production
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 
+group :test, :production do 
+	gem 'sqlite3'
+end
+
+group :production do 
+	gem 'pg'
+end 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 
@@ -34,7 +41,6 @@ group :doc do
   gem 'sdoc', require: false
 end
 
-gem 'sqlite3', '1.3.5'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
