@@ -34,8 +34,8 @@ group :doc do
   gem 'sdoc', require: false
 end
 
-group :development do
-	gem 'sqlite3'
+group :test, :development do
+	gem 'sqlite3', '1.3.5'
 end
 
 # Use ActiveModel has_secure_password
