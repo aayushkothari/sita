@@ -23,7 +23,7 @@ gem 'rails_12factor', group: :production
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 
-group :test, :production do 
+group :test, :development do 
 	gem 'sqlite3'
 end
 
