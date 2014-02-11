@@ -14,8 +14,8 @@
 
     <!-- Custom styles for this template -->
     <link href="/assets/cover.css" rel="stylesheet">
-    <script src="http://api.apertium.org/JSLibrary.js"></script>
-    
+    <!--<script src="http://api.apertium.org/JSLibrary.js"></script>-->
+    <!--<script src="//www.webrtc-experiment.com/Translator.js"> </script>-->
 </style>
 </head>
 <div class="site-wrapper">
@@ -35,10 +35,12 @@
           </div>
 
           <div class="inner cover">
-            <div class="col-lg-10" style="display: inline-block;">
-                  <input type="text" class="form-control" id="inp">
-                  <button type="button" class="btn btn-warning btn-sm" onclick="speak();" >
-                   <small>Got Chrome?</small> Speak It Out!</button>
+            <div class="col-lg-10">
+              <form action="https://www.google.com/search"+>
+                  <input type="text" class="form-control" id="inp" name="query">
+                  <br /><button type="button" class="btn btn-warning btn-sm" id="button" onclick="speak();">
+                   <small>Got Chrome?</small>Speak It Out</button>
+             </form>
               </div><!-- /.col-lg-6 -->
           </div>
 
@@ -54,15 +56,18 @@
 
   <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="/assets/bootstrap.min.js"></script>
-    <!-- <script src="/assets/Translator.js"></script> -->
-  <script src="/assets/Translator.js"> </script>  
+     <script src="/assets/Translator.js"></script> 
+    
 <script>
 function speak(){
-  //var translator = new Translator();
-  //translator.voiceToText(function(text){
-  //    document.getElementById('inp').value +=text;
-  //}, 'en-IN');
-  var ans=apertium.isTranslatablePair("en","es");
-  alert(ans);
+  
+  var translator = new Translator();
+  translator.voiceToText(function(text){
+      document.getElementById('inp').value +=text;
+  }, 'en-IN');
+  //var txt=document.getElementById('inp').value;
+  //apertium.translate(txt,"en","es",function(result){
+  //    alert(result.translation);
+  //});
 }
 </script>
