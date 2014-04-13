@@ -1,0 +1,24 @@
+<div style="background: white">
+<% images_am=@page_am.images_with(:src => /\A(http\:\/\/ecx).+/)[0..5] %>
+<% links_am=@page_am.links.select{|link| link.href && link.href.include?("/dp") && link.href[0]!='/'}[0..5] %>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <% for i in 0...links_am.size %>
+
+        <div class="result">
+          <%= image_tag(images_am[i]) %><br /><%= link_to(links_am[i].text,links_am[i].href) %>
+        </div>
+    
+      <% i+=1 %>
+      <% end %>
+
+    </div>
+    <div clas="col-md-6">
+     
+    </div>
+  </div>
+</div>
+
+  </div>        
