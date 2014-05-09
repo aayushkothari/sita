@@ -2,6 +2,8 @@
 <% images_am=@page_am.images_with(:src => /\A(http\:\/\/ecx).+/)[0..5] %>
 <% links_am=@page_am.links.select{|link| link.href && link.href.include?("/dp") && link.href[0]!='/'}[0..5] %>
 
+
+
 <div class="container">
   <div class="row">
     <div class="col-md-6">
@@ -15,10 +17,5 @@
       <% end %>
 
     </div>
-    <div clas="col-md-6">
-     
-    </div>
-  </div>
-</div>
 
   </div>        

@@ -7,6 +7,9 @@ gem 'rails', '4.0.2'
 gem 'treat'
 gem 'nokogiri'
 gem 'mechanize'
+gem 'engtagger'
+gem 'stanford-core-nlp'
+gem 'chronic'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
 

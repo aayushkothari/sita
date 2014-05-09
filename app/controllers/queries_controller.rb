@@ -1,4 +1,8 @@
 require 'open-uri'
+require 'treat'
+require 'date'
+include Treat::Core::DSL
+
 class QueriesController < ApplicationController
   before_action :set_query, only: [:show, :edit, :update, :destroy]
 
@@ -12,10 +16,24 @@ class QueriesController < ApplicationController
   # GET /queries/1.json
   def show
     
-    
-      @page_am=Mechanize.new.get("http://www.amazon.in/s/?field-keywords="+@query.val.strip.gsub(" ","%20"))
-      @page_fl=Mechanize.new.get("http://www.flipkart.com/search?q="+@query.val.strip.gsub(" ","%20"))
-      
+    c=@query.val.split(" ").map {|x| x.downcase.capitalize }.join(' ')
+    c=c.apply(:tokenize,:category)
+    if c.verbs 
+      if c.verbs[1].to_s.downcase=="fly"
+        fr=c.nouns[0].to_s.upcase
+        to=c.nouns[1].to_s.upcase
+
+        dat=c.adjectives.count>0 ? (c.adjectives[0].to_s + ' '+ c.nouns[2].to_s) : (c.nouns[2].to_s + ' '+ c.nouns[3].to_s)
+        dat=Chronic.parse(dat).to_date.strftime("%d/%m/%Y")
+        redirect_to "http://www.cleartrip.com/flights/results?from="+fr+"&to="+to+"&depart_date="+dat+"&adults=1&childs=0&infants=0&class=Economy&airline=&carrier=&intl=n&page=loaded"
+      elsif c.verbs[1].to_s.downcase=="buy"
+
+        @page_am=Mechanize.new.get("http://www.amazon.in/s/?field-keywords="+@query.val.strip.gsub(" ","%20"))
+        @page_fl=Mechanize.new.get("http://www.flipkart.com/search?q="+@query.val.strip.gsub(" ","%20"))
+     end
+   end
+
+
   end
 
   # GET /queries/new
