@@ -166,6 +166,7 @@ DEPENDENCIES
   pg
   rails (= 4.0.2)
   rails_12factor
+  rjb
   sass-rails (~> 4.0.0)
   sdoc
   sqlite3
