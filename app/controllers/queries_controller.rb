@@ -16,21 +16,29 @@ class QueriesController < ApplicationController
   # GET /queries/1.json
   def show
     
-    c=@query.val.split(" ").map {|x| x.downcase.capitalize }.join(' ')
+    c=@query.val.gsub("wanna","want to").split(" ").map {|x| x.downcase.capitalize }.join(' ')
     c=c.apply(:tokenize,:category)
-    if c.verbs 
-      if c.verbs[1].to_s.downcase=="fly"
+    if c.verbs
+      action=c.verbs.join.downcase 
+      if action.match("fly").to_s=="fly"
+       
         fr=c.nouns[0].to_s.upcase
         to=c.nouns[1].to_s.upcase
-
         dat=c.adjectives.count>0 ? (c.adjectives[0].to_s + ' '+ c.nouns[2].to_s) : (c.nouns[2].to_s + ' '+ c.nouns[3].to_s)
         dat=Chronic.parse(dat).to_date.strftime("%d/%m/%Y")
         redirect_to "http://www.cleartrip.com/flights/results?from="+fr+"&to="+to+"&depart_date="+dat+"&adults=1&childs=0&infants=0&class=Economy&airline=&carrier=&intl=n&page=loaded"
-      elsif c.verbs[1].to_s.downcase=="buy"
+      
+      elsif (action.match("buy").to_s=="buy")||(action.match("purchase").to_s=="purchase")
 
-        @page_am=Mechanize.new.get("http://www.amazon.in/s/?field-keywords="+@query.val.strip.gsub(" ","%20"))
-        @page_fl=Mechanize.new.get("http://www.flipkart.com/search?q="+@query.val.strip.gsub(" ","%20"))
+        @page_am=Mechanize.new.get("http://www.amazon.in/s/?field-keywords="+c.nouns.join(' ').strip.gsub(" ","%20"))
+        @page_fl=Nokogiri::HTML(open("http://www.flipkart.com/search?q="+c.nouns.join(' ').strip.gsub(" ","%20")))
+      
+      elsif action.match("read").to_s=="read"
+        gon.topic=c.nouns.join(' ').gsub(" ","%20")
+        render :partial => 'news'  
      end
+    
+
    end
 
 

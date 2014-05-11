@@ -1,21 +1,47 @@
+
 <div style="background: white">
 <% images_am=@page_am.images_with(:src => /\A(http\:\/\/ecx).+/)[0..5] %>
-<% links_am=@page_am.links.select{|link| link.href && link.href.include?("/dp") && link.href[0]!='/'}[0..5] %>
-
-
-
+<% links_am=@page_am.links.select{|link| link.href && link.href.include?("/dp") && link.href[0]!='/'} %>
+<% details_fl=@page_fl.css('div.pu-details.lastUnit') %>
+<% images_fl=@page_fl.css('div.pu-visual-section') %>
+<% if details_fl.size==0 %>
+  <% details_fl_book=@page_fl.css('div.list-unit') %>
+<% end %>
+<% j=1 %>
 <div class="container">
   <div class="row">
     <div class="col-md-6">
-      <% for i in 0...links_am.size %>
-
+      <% for i in 0...images_am.size %>
         <div class="result">
-          <%= image_tag(images_am[i]) %><br /><%= link_to(links_am[i].text,links_am[i].href) %>
+          <%= link_to(image_tag(images_am[i], alt: "No Image")+"\n"+links_am[j].text+"\n"+link_to(links_am[j+1].text,links_am[j+1].href),links_am[j].href) %>
         </div>
-    
-      <% i+=1 %>
+        <br /><br />
+        <% j+=3 %>
       <% end %>
-
     </div>
+<div class="col-md-6">
+  <% if details_fl.size!=0 %>
+    <% for i in 0...details_fl.size %>
+      <% detail=details_fl[i] %>
+      <% image=images_fl[i] %>
+      <div class="item">
+      <%= image_tag(image.at_css('img')['data-src']) %><br />
+      <%= link_to(detail.at_css('div a').text,"http://www.flipkart.com"+detail.at_css('div a')[:href]) %><br />
+      <%= detail.at_css('div div div span').text %><br /><br />
+      </div>
+    <% end %>
+  <% else %>
+    <% for i in 0...details_fl_book.size %>
+      <% detail=details_fl_book[i] %>
+      <div class="item_book">
+              <%= image_tag(detail.at_css('div.lu-image img')[:src], alt: "No Image") %><br />
+              <%= link_to(detail.at_css('a.lu-title').text,"http://www.flipkart.com"+detail.at_css('a.lu-title')[:href]) %><br />
+              <%= detail.css('div.pu-price div').text %><br /><br />
+      </div>
+    <% end %>
+  <% end %>
+</div>
+</div>
+</div>
 
   </div>        

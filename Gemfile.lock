@@ -41,6 +41,9 @@ GEM
     engtagger (0.2.0)
     erubis (2.7.0)
     execjs (2.0.2)
+    gon (5.0.4)
+      actionpack (>= 2.3.0)
+      json
     hike (1.2.3)
     http-cookie (1.0.2)
       domain_name (~> 0.5)
@@ -154,6 +157,7 @@ DEPENDENCIES
   chronic
   coffee-rails (~> 4.0.0)
   engtagger
+  gon
   jbuilder (~> 1.2)
   jquery-rails
   mechanize
