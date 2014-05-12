@@ -7,8 +7,6 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="../../assets/ico/favicon.ico">
 
-    <title>Talk To Me</title>
-
     <!-- Bootstrap core CSS -->
     <link href="/assets/bootstrap.min.css" rel="stylesheet">
 
@@ -19,25 +17,18 @@
 </style>
 </head>
 <div class="site-wrapper">
-
+      
+      
       <div class="site-wrapper-inner">
+        <div style="width: 80%; padding: 60px;">
 
-     <div class="cover-container">
+        <span style="font-size: 44px; color: white;">Welcome to SITA </span><span style="font-size: 38px; color: white;"> - your personal, intelligent assistant for the web!</span>
+        </div>
 
-          <div class="masthead clearfix">
-            <div class="inner">
-              <h3 class="masthead-brand">Cover</h3>
-              <ul class="nav masthead-nav">
-                <li class="active"><a href="#">Home</a></li>
-                
-              </ul>
-          </div>
-            </div>
+              <div class="cover-wrapper">
+            <div class="container">
 
-         <div class="inner cover">
-            <div class="col-lg-10">
-              
-             <!-- /.col-lg-6 -->
+    
 
 <%= form_for(@query) do |f| %>
   <% if @query.errors.any? %>
@@ -51,14 +42,23 @@
       </ul>
     </div>
   <% end %>
-   
-    <%= f.text_field :val, class: "input-lg", :id => 'inp', :style => "color: gray" %>
-  </div>
-  <div class="actions">
-    <%= f.submit 'Parse', class: "btn btn-success btn-lg" %>
+  <div class="row">
+    <div class="col-lg-10">
+    <div class="input-group input-group-lg" style="width: 70%; position: relative;">
+    <%= f.text_field :val, class: "form-control", :id => 'inp', :style => "color: gray;" %>
+    <span class="input-group-btn">
+    <%= f.submit 'Go!', class: "btn btn-success" %></span>
   </div>
 <% end %>
-<button class="btn btn-primary" onclick="speak();">Try Speaking</button>
+</div>
+<br /><hr><br />
+<div class="col-lg-6" style="position: relative;">
+  <span style="color: black">(Got Chrome?)</span>
+<button class="btn btn-primary" onclick="speak();">Try Speaking</button></p>
+</div>
+</div>
+</div>
+</div>
 <div class="mastfoot">
             <div class="inner">
               <p>Created by Aayush Kothari, Prashant Baid @ MIT, Manipal</p>

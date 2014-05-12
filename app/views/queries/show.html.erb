@@ -1,5 +1,10 @@
+<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<div style="background: white">
+    <!-- Custom styles for this template -->
+  
+
 <% images_am=@page_am.images_with(:src => /\A(http\:\/\/ecx).+/)[0..5] %>
 <% links_am=@page_am.links.select{|link| link.href && link.href.include?("/dp") && link.href[0]!='/'} %>
 <% details_fl=@page_fl.css('div.pu-details.lastUnit') %>
@@ -8,9 +13,11 @@
   <% details_fl_book=@page_fl.css('div.list-unit') %>
 <% end %>
 <% j=1 %>
-<div class="container">
+
+<div class="container" style="background: white;">
   <div class="row">
     <div class="col-md-6">
+      <h1>Amazon</h1><br /><br />
       <% for i in 0...images_am.size %>
         <div class="result">
           <%= link_to(image_tag(images_am[i], alt: "No Image")+"\n"+links_am[j].text+"\n"+link_to(links_am[j+1].text,links_am[j+1].href),links_am[j].href) %>
@@ -20,6 +27,7 @@
       <% end %>
     </div>
 <div class="col-md-6">
+  <h1>Flipkart</h1><br /><br />
   <% if details_fl.size!=0 %>
     <% for i in 0...details_fl.size %>
       <% detail=details_fl[i] %>
@@ -42,6 +50,4 @@
   <% end %>
 </div>
 </div>
-</div>
-
-  </div>        
+</div>    

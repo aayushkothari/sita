@@ -15,7 +15,11 @@ class QueriesController < ApplicationController
   # GET /queries/1
   # GET /queries/1.json
   def show
-    
+    if @query.val==""
+       redirect_to new_query_path
+       
+      
+    end
     c=@query.val.gsub("wanna","want to").split(" ").map {|x| x.downcase.capitalize }.join(' ')
     c=c.apply(:tokenize,:category)
     if c.verbs
@@ -30,8 +34,8 @@ class QueriesController < ApplicationController
       
       elsif (action.match("buy").to_s=="buy")||(action.match("purchase").to_s=="purchase")
 
-        @page_am=Mechanize.new.get("http://www.amazon.in/s/?field-keywords="+c.nouns.join(' ').strip.gsub(" ","%20"))
-        @page_fl=Nokogiri::HTML(open("http://www.flipkart.com/search?q="+c.nouns.join(' ').strip.gsub(" ","%20")))
+        @page_am=Mechanize.new.get(("http://www.amazon.in/s/?field-keywords="+c.nouns.join(' ')+' '+c.numbers[0].to_s).strip.gsub(" ","%20"))
+        @page_fl=Nokogiri::HTML(open(("http://www.flipkart.com/search?q="+c.nouns.join(' ')+' '+c.numbers[0].to_s).strip.gsub(" ","%20")))
       
       elsif action.match("read").to_s=="read"
         gon.topic=c.nouns.join(' ').gsub(" ","%20")
